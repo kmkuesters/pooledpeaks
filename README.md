@@ -6,8 +6,8 @@
 # Package Overview
 
 pooledpeaks is designed for analyzing genetic data obtained from Fragment
-Analysis output files (.fsa) of pooled biological samples. It provides functions
-for a comprehensive analysis pipeline from processing .fsa files, to cleaning
+Analysis output files (`.fsa`) of pooled biological samples. It provides functions
+for a comprehensive analysis pipeline from processing `.fsa` files, to cleaning
 the peak data, and conducting population genetic analyses. Some features are
 listed below and a usage example of the entire pipeline is included as a vignette.
 Please check out the [Contributing Guidelines](inst/CONTRIBUTING.md) for
@@ -37,13 +37,14 @@ install.packages("pooledpeaks")
 ## Features
 
 For a detailed example of how to apply the functions contained in this package
-please see the [Introduction to Using the pooledpeaks Workflow](vignettes/workflow.Rmd).
-Example data can be found on GitHub under the inst/extdata folder including .fsa
+please see the [Introduction to Using the pooledpeaks
+Workflow](https://cran.r-project.org/web/packages/pooledpeaks/vignettes/workflow.html).
+Example data can be found on GitHub under the inst/extdata folder including `.fsa`
 files and a formatted "Multiplex_frequencies.txt" file for the Genetic Analysis
 portion.
 
-  * **Peak Scoring:** Process .fsa files and score peaks contained therein.
-  
+  * **Peak Scoring:** Process `.fsa` files and score peaks contained therein.
+
 ```r
 check_fsa_v_batch()
 fsa_metadata()
@@ -51,9 +52,9 @@ fsa_batch_imp()
 associate_dyes()
 score_markers_rev3()
 ```
-  
+
   * **Data Manipulation:** Clean and prepare peak data for downstream analyses.
-  
+
 ```r
 clean_scores()
 lf_to_tdf()
@@ -62,17 +63,17 @@ Rep_check()
 PCDM()
 LoadData()
 ```
-  
+
   * **Population Genetics Analysis:**
-  
+
     * Calculate Gene Identity Matrix and Genetic Distance Matrix
-    
+
     * Calculate diversity indices
-    
+
     * Calculate differentiation indices
-    
+
     * Perform cluster analysis
-    
+
 ```r
 TypedLoci()
 GeneIdentityMatrix()
@@ -81,9 +82,9 @@ GST()
 JostD()
 cluster()
 ```
-    
+
   * **Visualization:** Visualize the peak scoring and genetic analysis results.
-      
+
 ```r
 MDSplot()
 ```
@@ -94,9 +95,9 @@ Kuesters' dissertation.
 
 # References:
 
-* Covarrubias-Pazaran et al. (2016) <doi:10.1186/s12863-016-0365-6>
-* Long et al. (2022) <doi:10.1038/s41598-022-04776-0>
-* Jost (2008) <doi:10.1111/j.1365-294x.2008.03887.x>
-* Nei (1973) <doi:10.1073/pnas.70.12.3321>
-* Foulley et al. (2006) <doi:10.1016/j.livprodsci.2005.10.021>
-* Chao et al. (2008) <doi:10.1111/j.1541-0420.2008.01010.x>
+* Covarrubias-Pazaran et al. (2016) [doi:10.1186/s12863-016-0365-6](https://doi.org/10.1186/s12863-016-0365-6)
+* Long et al. (2022) [doi:10.1038/s41598-022-04776-0](https://doi.org/10.1038/s41598-022-04776-0)
+* Jost (2008) [doi:10.1111/j.1365-294x.2008.03887.x](https://doi.org/10.1111/j.1365-294x.2008.03887.x)
+* Nei (1973) [doi:10.1073/pnas.70.12.3321](https://doi.org/10.1073/pnas.70.12.3321)
+* Foulley et al. (2006) [doi:10.1016/j.livprodsci.2005.10.021](https://doi.org/10.1016/j.livprodsci.2005.10.021)
+* Chao et al. (2008) [doi:10.1111/j.1541-0420.2008.01010.x](https://doi.org/10.1111/j.1541-0420.2008.01010.x)
