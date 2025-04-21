@@ -1,6 +1,6 @@
 Package: pooledpeaks
 Title: Genetic Analysis of Pooled Samples
-Version: 1.1.1
+Version: 1.2.0
 Authors@R: c( 
     person("Kathleen", "Kuesters", email = "kathleen.kuesters@gmail.com", 
        role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0003-0238-7889")),
