@@ -38,7 +38,7 @@ install.packages("pooledpeaks")
 
 For a detailed example of how to apply the functions contained in this package
 please see the [Introduction to Using the pooledpeaks
-Workflow](https://cran.r-project.org/web/packages/pooledpeaks/vignettes/workflow.html).
+Workflow](https://CRAN.R-project.org/package=pooledpeaks/vignettes/workflow.html).
 Example data can be found on GitHub under the inst/extdata folder including `.fsa`
 files and a formatted "Multiplex_frequencies.txt" file for the Genetic Analysis
 portion.
@@ -89,11 +89,35 @@ cluster()
 MDSplot()
 ```
 
+## Sample Data
+
+
+The sample `.fsa` files included in this package are provided for demonstration
+purposes and originate from two sources:
+
+- **Schistosoma haematobium laboratory isolates**, used for preliminary testing
+of the `pooledpeaks` workflow. These data contain no identifiable or human
+subject information.
+- **De-identified Schistosoma mansoni samples** from a three studies conducted in
+Brazil, extracted from discarded human waste. These files were originally used
+for genetic analysis and are shared here in anonymized form to illustrate
+compatibility with additional species and data sources.These studies are
+described in detail by Long et al. (2022), available at
+https://www.nature.com/articles/s41598-022-04776-0:
+
+These files are intended solely to demonstrate the functionality of the
+`pooledpeaks` package and are not for diagnostic or clinical use.To access the
+example `.fsa` files included with the package, use the following path within R:
+
+```r
+system.file("extdata", package = "pooledpeaks")
+```
+
 The pooledpeaks package was developed by the Blanton Lab as part of Kathleen
 Kuesters' dissertation.
 
 
-# References:
+## References:
 
 * Covarrubias-Pazaran et al. (2016) [doi:10.1186/s12863-016-0365-6](https://doi.org/10.1186/s12863-016-0365-6)
 * Long et al. (2022) [doi:10.1038/s41598-022-04776-0](https://doi.org/10.1038/s41598-022-04776-0)

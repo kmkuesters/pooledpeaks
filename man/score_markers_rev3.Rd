@@ -24,7 +24,7 @@ score_markers_rev3(
   env = parent.frame(),
   my.palette = NULL,
   plotting = FALSE,
-  plotdir = "plots_scoring",
+  plotdir = "plots_scoring/",
   pref = 3
 )
 }

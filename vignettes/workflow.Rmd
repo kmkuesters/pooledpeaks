@@ -12,10 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-```
-
-```{r setup}
-library(pooledpeaks)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 6)
 ```
 
 # Introduction
@@ -23,7 +20,48 @@ library(pooledpeaks)
 Welcome to pooledpeaks. This guide introduces researchers to pooledpeaks for
 analyzing microsatellite markers, scoring `.fsa` files, and calculating genetic
 measures like Nei's GST and Jost's D. Basic R skills are required, but most
-steps are straightforward.
+steps are straightforward. This vignette includes `.fsa` files from two
+different sources:
+
+- Laboratory-derived *Schistosoma haematobium* samples, used for development
+and testing of the `pooledpeaks` pipeline.
+- De-identified *Schistosoma mansoni* samples collected in Brazil in 2019.
+These samples were extracted from discarded human waste as part of a study on
+parasite transmission dynamics and contain no identifiable information.
+
+These files are intended solely to demonstrate the functionality of the
+`pooledpeaks` package and are not for diagnostic or clinical use.To access the
+example `.fsa` files included with the package, use the following path within R:
+
+```r
+system.file("extdata", package = "pooledpeaks")
+```
+### Data Objects
+
+Several internal data objects are created and used in this vignette to
+demonstrate the analytical workflow of the `pooledpeaks` package. These
+include:
+
+- **`eggcount`**: A manually created demonstration table used to simulate egg
+count data for pooled Schistosoma samples. This data mimics what might be
+collected during field surveillance or lab-based quantification, with rows
+representing sample pools and values corresponding to observed egg counts.
+
+- **`Shae10`**: An example marker panel for *Schistosoma haematobium*.
+This object contains the expected allele sizes for the microsatellite marker
+**Shae10**, and is used by the scoring function to define where to look for
+peaks in fragment analysis files.
+
+- **`mic_SMMS2`**: An example marker panel for *Schistosoma mansoni*. This
+object contains the expected allele sizes for the microsatellite marker
+**SMMS2**, and is similarly used to guide peak scoring by indicating the size
+ranges where alleles are expected.
+
+- **`GS600LIZ`**: The internal size standard used for fragment analysis in the
+provided `.fsa` files. This dataset represents the ladder or size reference
+included in each electropherogram file, which allows for accurate sizing of
+microsatellite peaks.
+
 
 # What This Vignette Covers
 
@@ -47,11 +85,22 @@ functions written specifically for this analysis pipeline.
 In addition to the `pooledpeaks` library the following packages are require to
 utilize this package to its fullest capacity.
 
+```{r setup}
+library(pooledpeaks)
+```
+
 ```{r, message=FALSE}
 library(Fragman)
 library(ape)
 library(magrittr)
 library(tibble)
+
+if (!rlang::is_installed("plyr")) {
+  stop("This vignette requires the 'plyr' package. Please install it with
+       install.packages('plyr').")
+}
+
+library(plyr)
 library(dplyr)
 ```
 Identify where the `.fsa` files are located on your computer, load in the
@@ -61,13 +110,12 @@ provide the expected peak size panels for your markers and ladder.
 ```{r}
 file_path <- system.file("extdata", package = "pooledpeaks")
 eggcount <- data.frame(
-    ID = c("X104.1",  "X1084.1", "X1084.3", "X1086.3", "X1087.3", "X1205.3",
+    ID = c("X23.2",  "X30.3", "X33.1", "X1086.3", "X1087.3", "X1205.3",
            "X121.3",  "X1222.3", "X1354.3", "X1453.3", "X1531.3", "X1540.1",
-           "X1550.3", "X1796.1", "X1809.1", "X1968.1", "X1968.3", "X2100.1",
-           "X2462.1", "X2463.1", "X473.1",  "X620.1",  "X620.3", "X679.1",
-           "X910.1",  "X910.3"),
-    n = c(192, 126, 185, 171, 140, 20, 46, 80, 156, 154, 122, 19, 45, 117, 75,
-          22, 175, 100, 97, 183, 67, 90, 157, 104, 195, 145)
+           "Multiplex_set_I_Shaem.1",
+           "Multiplex_set_I_Shaem.3", "Multiplex_set_I_Shaem.4"),
+    n = c( 20, 46, 80, 156, 154, 122, 19, 45, 117, 75,
+          22, 175, 100, 97, 183)
   )
 Shae10 <- c(161,164,167,170,173,176,179,182,185,188,191,194,197,200,203,206,209,
             212,215,218)
@@ -96,7 +144,7 @@ peaks across all files within each channel. Once `.fsa` files have been imported
 the dyes must be associated with the channels. This can be done using `associate_dyes()`.
 
 ```{r}
-fsa_data <- fsa_batch_imp(file_path, channels = 5, rawPlot = FALSE,
+fsa_data <- fsa_batch_imp(file_path, channels = 5, rawPlot = TRUE,
                               fourier = TRUE, saturated = TRUE,
                               lets.pullup = FALSE)
 fsa_data <- associate_dyes(fsa_data, file_path)
@@ -118,7 +166,7 @@ sizes with the observed values. The program checks the correlation between these
 values, outputs the correlation results, and flags poorly correlated samples
 (<99.9%) in a vector named `bad`.
 
-```{r, message=FALSE,eval=FALSE}
+```{r, message=FALSE}
 ladder.info.attach(stored = fsa_data,ladder = GS600LIZ,
                    ladd.init.thresh = 200, prog = FALSE, draw = FALSE)
 corro <- unlist(sapply(list.data.covarrubias, function(x){x$corr}))
@@ -223,11 +271,11 @@ and replicate
 (e.g., **filename**: `104.1a_FA060920_2020-06-09_C05.fsa` becomes **ID**: `104.1a`).
 
 ```{r}
-scores_SMMS2_lf<-clean_scores(scores_SMMS2, pattern1 = "_FA.*",replacement1 = "",
-                              pattern2 = "_Sample.*", replacement2 = "")
+scores_SMMS2_lf<-clean_scores(scores_SMMS2, pattern1 = "_I_[A|B|C].*",replacement1 = "",
+                              pattern2 = "_[1|2|3]_Sample.*", replacement2 = "")
 
-scores_Shae10_lf<-clean_scores(scores_Shae10, pattern1 = "_FA.*",replacement1 = "",
-                              pattern2 = "_Sample.*", replacement2 = "")
+scores_Shae10_lf<-clean_scores(scores_Shae10, pattern1 = "_I_[A|B|C].*",replacement1 = "",
+                              pattern2 = "_[1|2|3]_Sample.*", replacement2 = "")
 ```
 
 **2. Transform from Long Format to Table Format**
@@ -261,20 +309,18 @@ write.table(scores_Shae10_tdf, file = "scores_Shae10_tdfex.txt", col.names = NA,
 
 This data manipulation section is important in order to prepare for the genetic
 analysis but it is much simpler than the peak scoring portion above. Begin by
-calling in the previously exported tdf data frames. For simplicity, this section
-will only focus on marker SMMS2.
+calling in the previously exported tdf data frames.
 
 ```{r}
-SMMS2<- read.delim("./scores_SMMS2_tdfex.txt")
+SMMS2<- read.delim("./scores_SMMS2_tdfex.txt")%>%
+  column_to_rownames(var = "X")
 ```
-```{r,include=FALSE}
-SMMS2<- SMMS2%>%
-  column_to_rownames(var = "X")%>%
-  select(-contains(".fsa"))
-```
+
 ```{r}
 head(SMMS2[, 1:9])
 ```
+
+
 
 ## Initial Data Manipulation
 
@@ -298,7 +344,7 @@ and calculates the Jost's D between the samples.
 
 ```{r}
 SMMS2_repcheck <- Rep_check(SMMS2_IDM)
-head(SMMS2_repcheck[, 3:11])
+head(SMMS2_repcheck)
 ```
 
 ## Data Manipulation for Genetic Analysis
@@ -326,9 +372,9 @@ frame can be exported as a .txt file, allowing for efficient reuse in future
 analyses without repeating these steps.
 
 ```{r,eval=FALSE}
-combined3<-rbind.fill(SMMS2_PCM, SMMS13_PCM, SMMS16_PCM)
+combined<-rbind.fill(SMMS2_PCM, SMMS13_PCM, SMMS16_PCM)
 
-write.table(combined3, file = "combined3.txt", col.names = NA,
+write.table(combined, file = "combined.txt", col.names = NA,
             quote = FALSE, row.names = TRUE, sep = "\t")
 ```
 
@@ -345,10 +391,21 @@ capabilities, not a comprehensive or in-depth example. For detailed use cases or
 advanced analyses, you may need to adjust the parameters and explore additional
 functions in the package.
 
+**Note:** This section uses a different dataset than the rest of the vignette.
+It includes a more extensive set of microsatellite markers and represents a
+subset of Schistosoma mansoni samples collected as part of a series of three
+studies conducted in Brazil. These studies are described in detail by Long et
+al. (2022), available at https://www.nature.com/articles/s41598-022-04776-0:
+
+Long, J.C., Taylor, S.E., Barbosa, L.M., et al. (2022). Cryptic population
+structure and transmission dynamics uncovered for Schistosoma mansoni
+populations by genetic analyses. Scientific Reports, 12, 1059.
+https://doi.org/10.1038/s41598-022-04776-0 
+
 ## Loading the Dataset
 
-The `LoadData` function modifies and saves the data frame from the previous step
-as the gends object with an added column that indexes the Locus number.
+The `LoadData` function modifies and saves the data frame as the gends object
+with an added column that indexes the Locus number.
 
 ```{r}
 gends <- LoadData("./combined3.txt")

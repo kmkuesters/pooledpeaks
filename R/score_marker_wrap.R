@@ -187,7 +187,7 @@ score_markers_rev3 <- function(my.inds, channel= 1, n.inds = NULL, panel= NULL,
                                windowR = 0.5, init.thresh = 200,
                                ladd.init.thresh = 200, method = "iter2",
                                env = parent.frame(), my.palette = NULL,
-                               plotting = FALSE, plotdir = "plots_scoring",
+                               plotting = FALSE, plotdir = "plots_scoring/",
                                pref = 3) {
   if (plotting == TRUE) {
     message(paste0("You are writing plots for all samples to the directory '",

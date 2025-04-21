@@ -5,6 +5,7 @@
 ## Resubmission
 In this version I have:
 
-*Added a CONTRIBUTE.md file containing for this package
-*Added a CODE_OF_CONDUCT.md file containing for this package
+* Fixed issues with the Vignette
+* Added additional documentation to the README.md file
+* Fixed a minor issues with the default input for path= in score_markers_rev3
 

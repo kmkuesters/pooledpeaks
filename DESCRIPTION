@@ -44,6 +44,7 @@ Imports:
     utils
 Suggests: 
     knitr,
+    plyr,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
