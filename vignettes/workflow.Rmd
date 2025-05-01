@@ -363,7 +363,7 @@ SMMS2_PCM<-PCDM(SMMS2_repcheck,eggcount,'SMMS2')
 head(SMMS2_PCM[,1:6])
 ```
 
-## Binding Markers and Exporting Allele Frequencies
+## OPTIONAL Binding Markers and Exporting Allele Frequencies
 
 If you have multiple markers, you can combine them into a single data frame
 using functions like `rbind.fill()`. This creates a consolidated structure with
@@ -372,6 +372,8 @@ frame can be exported as a .txt file, allowing for efficient reuse in future
 analyses without repeating these steps.
 
 ```{r,eval=FALSE}
+# Optional binding of markers SMMS2 and markers SMMS13 and SMMS16 which were
+# not shown in the workflow
 combined<-rbind.fill(SMMS2_PCM, SMMS13_PCM, SMMS16_PCM)
 
 write.table(combined, file = "combined.txt", col.names = NA,
@@ -408,7 +410,8 @@ The `LoadData` function modifies and saves the data frame as the gends object
 with an added column that indexes the Locus number.
 
 ```{r}
-gends <- LoadData("./combined3.txt")
+gends <- LoadData(file.path(file_path, "combined3.txt"))
+
 head(gends[1:8])
 ```
 
