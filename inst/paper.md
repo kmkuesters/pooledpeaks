@@ -33,23 +33,23 @@ authors:
     orcid: 0000-0001-6655-7336
     affiliation: 1
 affiliations:
- - name: Department of Tropical Medicine and Infectious Disease, Tulane University Celia Scott Weatherhead School of Public Health and Tropical Medicine, New Orleans, LA 70112, USA
+ - name: Department of Tropical Medicine and Infectious Disease, Tulane University Celia Scott Weatherhead School of Public Health and Tropical Medicine, New Orleans, LA 70112, United States of America
    index: 1
    ror: 04vmvtb21
- - name: Case Western Reserve University School of Medicine, Cleveland, OH 44106, USA
+ - name: Case Western Reserve University School of Medicine, Cleveland, OH 44106, United States of America
    index: 2
    ror: 051fd9666
- - name: Independent Researcher, USA
+ - name: Independent Researcher, United States of America
    index: 3
  - name: Bahiana School of Medicine and Public Health, Av. Silveira Martins, n 3386, Salvador, Bahia, 41150-100, Brazil
    index: 4
    ror: 0300yd604
- - name: Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Ministério da Saúde, Rua Waldemar Falcão, 121, Candeal, CEP 40296-710, Salvador, Bahia, Brasil
+ - name: Instituto Gonçalo Moniz, Fundação Oswaldo Cruz, Ministério da Saúde, Rua Waldemar Falcão, 121, Candeal, CEP 40296-710, Salvador, Bahia, Brazil
    index: 5
- - name: Faculdade de Medicina, Universidade Federal da Bahia, Praça XV de novembro, s/n - Largo do Terreiro de Jesus, CEP 40026-010, Salvador, Bahia, Brasil
+ - name: Faculdade de Medicina, Universidade Federal da Bahia, Praça XV de novembro, s/n - Largo do Terreiro de Jesus, CEP 40026-010, Salvador, Bahia, Brazil
    index: 6
    ror: 03k3p7647
- - name: Department of Epidemiology of Microbial Diseases, Yale School of Public Health, 60 College St, New Haven, Connecticut, 06510, USA
+ - name: Department of Epidemiology of Microbial Diseases, Yale School of Public Health, 60 College St, New Haven, Connecticut, 06510, United States of America
    index: 7
    ror: 03v76x132
 date: 1 February 2025
@@ -60,7 +60,7 @@ bibliography: pooledpeaks_paper.bib
 
 Microsatellite markers are short, highly variable, multi-repeat DNA sequences 
 (aka short tandem repeats) that appear throughout the genome and can be used to
-estimate population genetic metrics [@silva], [@vieira]. 
+estimate population genetic metrics [@silva; @vieira]. 
 These markers are frequently evaluated using fragment analysis which is based 
 on Sanger sequencing. The `pooledpeaks` R package provides tools to analyze 
 fragment analysis results (.fsa files). It provides functions that fall in 
@@ -77,7 +77,7 @@ functions were created to clean and format the data from the called peaks and
 transform them into allele frequencies. These frequencies can then be input 
 into the genetic analysis functions for calculation of diversity and 
 differentiation measures adapted from a range of papers
-[@long],[@jost],[@nei],[@foulley],[@chao]. An in-depth 
+[@long;@jost;@nei;@foulley;@chao]. An in-depth 
 walk-through of how to use the analysis pipeline can be found in the vignette.
 
 # Statement of Need
@@ -85,13 +85,13 @@ walk-through of how to use the analysis pipeline can be found in the vignette.
 While a plethora of methods exist for downstream statistical analysis of allele
 frequencies, processing raw fragment data is limited by available software. Of 
 the limited software that can read the .fsa binary raw data file format, nearly
-all require purchase or registration, are primarily built for windows, are 
+all require purchase or registration, are primarily built for Windows, are 
 inefficient for analyzing large batches of files, and are highly dependent on 
 individual researcher experience. Additionally, a previous R package allowing 
 for the analysis of .fsa files is incompatible with the updated file version. 
 When using fragment analysis for microsatellite markers on pooled samples, once
 the raw data is extracted and scored, it must be cleaned and transformed into 
-allele frequencies using a second software, such as excel, which is limited in
+allele frequencies using a second software, such as Excel, which is limited in
 its capacity for automation and version control. Another platform shift is 
 often required to analyze the resulting allele frequencies. These factors 
 highlight the need for a comprehensive scoring and analysis pipeline that is 

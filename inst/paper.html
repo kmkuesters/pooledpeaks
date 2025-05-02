@@ -384,16 +384,17 @@ Markers in Pooled Samples</h1>
 <h1>Summary</h1>
 <p>Microsatellite markers are short, highly variable, multi-repeat DNA
 sequences (aka short tandem repeats) that appear throughout the genome
-and can be used to estimate population genetic metrics <span class="citation">(Silva, Liu, and Blanton 2006)</span>, <span class="citation">(Vieira et al. 2016)</span>. These markers are
-frequently evaluated using fragment analysis which is based on Sanger
-sequencing. The <code>pooledpeaks</code> R package provides tools to
-analyze fragment analysis results (.fsa files). It provides functions
-that fall in three subcategories: 1) peak scoring, 2) data manipulation,
-and 3) genetic analysis. The package was designed for the use of
-microsatellite markers on pooled parasite samples, but the peak scoring
-functions are applicable to any fragment analysis. The peak scoring
-functions were partially adapted from Fragman, a package designed to
-score microsatellite markers in cranberries <span class="citation">(Covarrubias-Pazaran et al. 2016)</span>. Although
+and can be used to estimate population genetic metrics <span class="citation">(Silva, Liu, and Blanton 2006; Vieira et al.
+2016)</span>. These markers are frequently evaluated using fragment
+analysis which is based on Sanger sequencing. The
+<code>pooledpeaks</code> R package provides tools to analyze fragment
+analysis results (.fsa files). It provides functions that fall in three
+subcategories: 1) peak scoring, 2) data manipulation, and 3) genetic
+analysis. The package was designed for the use of microsatellite markers
+on pooled parasite samples, but the peak scoring functions are
+applicable to any fragment analysis. The peak scoring functions were
+partially adapted from Fragman, a package designed to score
+microsatellite markers in cranberries <span class="citation">(Covarrubias-Pazaran et al. 2016)</span>. Although
 Fragman works for the older file version, newer versions cannot be read.
 In addition to revising this outdated function, we also added features
 including expanded scoring parameter options and exporting resulting
@@ -401,9 +402,9 @@ scoring plots as a pdf file for review. The data manipulation functions
 were created to clean and format the data from the called peaks and
 transform them into allele frequencies. These frequencies can then be
 input into the genetic analysis functions for calculation of diversity
-and differentiation measures adapted from a range of papers <span class="citation">(Long et al. 2022)</span>,<span class="citation">(Jost
-2008)</span>,<span class="citation">(Nei 1973)</span>,<span class="citation">(Foulley and Ollivier 2006)</span>,<span class="citation">(Chao et al. 2008)</span>. An in-depth walk-through of
-how to use the analysis pipeline can be found in the vignette.</p>
+and differentiation measures adapted from a range of papers <span class="citation">(Long et al. 2022; Jost 2008; Nei 1973; Foulley and
+Ollivier 2006; Chao et al. 2008)</span>. An in-depth walk-through of how
+to use the analysis pipeline can be found in the vignette.</p>
 </div>
 <div id="statement-of-need" class="section level1">
 <h1>Statement of Need</h1>
@@ -411,14 +412,14 @@ how to use the analysis pipeline can be found in the vignette.</p>
 of allele frequencies, processing raw fragment data is limited by
 available software. Of the limited software that can read the .fsa
 binary raw data file format, nearly all require purchase or
-registration, are primarily built for windows, are inefficient for
+registration, are primarily built for Windows, are inefficient for
 analyzing large batches of files, and are highly dependent on individual
 researcher experience. Additionally, a previous R package allowing for
 the analysis of .fsa files is incompatible with the updated file
 version. When using fragment analysis for microsatellite markers on
 pooled samples, once the raw data is extracted and scored, it must be
 cleaned and transformed into allele frequencies using a second software,
-such as excel, which is limited in its capacity for automation and
+such as Excel, which is limited in its capacity for automation and
 version control. Another platform shift is often required to analyze the
 resulting allele frequencies. These factors highlight the need for a
 comprehensive scoring and analysis pipeline that is open-source,
