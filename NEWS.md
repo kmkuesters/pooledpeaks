@@ -1,3 +1,5 @@
+# pooledpeaks 1.2.2
+
 # pooledpeaks 1.2.1
 
 # pooledpeaks 1.2.0
